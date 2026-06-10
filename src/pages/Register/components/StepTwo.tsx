@@ -1,24 +1,8 @@
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
+import { EyeIcon } from "../../../components/icons/EyeIcon";
 import type { RegisterFormValues } from "../schemas/registerSchema";
 import { errorClass, inputClass, labelClass } from "./fieldStyles";
-
-const EyeIcon = ({ open }: { open: boolean }) => (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" />
-    <circle cx="12" cy="12" r="3" />
-    {!open && <line x1="4" y1="4" x2="20" y2="20" />}
-  </svg>
-);
 
 interface PasswordFieldProps {
   id: "password" | "confirmPassword";
@@ -49,7 +33,7 @@ const PasswordField = ({ id, label }: PasswordFieldProps) => {
           type="button"
           onClick={() => setVisible((v) => !v)}
           aria-label={visible ? "Ocultar contraseña" : "Mostrar contraseña"}
-          className="absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer text-gray-300 hover:text-gray-500"
+          className="absolute top-1/2 right-4 -translate-y-1/2 cursor-pointer text-gray-700"
         >
           <EyeIcon open={visible} />
         </button>
