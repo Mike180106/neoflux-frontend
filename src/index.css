@@ -1,12 +1,7 @@
 @import "tailwindcss";
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* El reset (box-sizing, márgenes) ya lo aporta el preflight de Tailwind.
+   No agregar resets globales sin capa: pisarían las utilidades de Tailwind. */
 
 html,
 body {
