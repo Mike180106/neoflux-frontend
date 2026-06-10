@@ -5,6 +5,7 @@ import { DashboardLayout } from "../components/Layouts/DashboardLayout";
 import { LoginPage } from "../pages/Login/LoginPage";
 import { RegisterPage } from "../pages/Register/RegisterPage";
 import { HomePage } from "../pages/Home/HomePage";
+import { MyLoansPage } from "../pages/MyLoans/MyLoansPage";
 import { ComingSoonPage } from "../pages/ComingSoon/ComingSoonPage";
 import { ProtectedRoute } from "./ProtectedRoute";
 
@@ -39,7 +40,7 @@ export const router = createBrowserRouter([
         children: [
           { path: "home", element: <HomePage /> },
           { path: "ahorro", element: <ComingSoonPage /> },
-          { path: "prestamos", element: <ComingSoonPage /> },
+          { path: "prestamos", element: <MyLoansPage /> },
           { path: "prestamos/solicitar", element: <ComingSoonPage /> },
           { path: "configuracion", element: <ComingSoonPage /> },
           { path: "ayuda", element: <ComingSoonPage /> },
