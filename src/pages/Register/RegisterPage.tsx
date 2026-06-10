@@ -72,7 +72,7 @@ export const RegisterPage = () => {
 
   const onSubmit = (data: RegisterFormValues) => {
     registerMutation.mutate(data, {
-      onSuccess: () => navigate("/"),
+      onSuccess: () => navigate("/home"),
     });
   };
 

@@ -37,7 +37,7 @@ export const LoginPage = () => {
 
   const onSubmit = (data: LoginFormValues) => {
     loginMutation.mutate(data, {
-      onSuccess: () => navigate("/"),
+      onSuccess: () => navigate("/home"),
     });
   };
 

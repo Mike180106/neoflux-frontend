@@ -1,8 +1,12 @@
 import { createBrowserRouter, Navigate } from "react-router";
 import { LandingPage } from "../pages/Landing/LandingPage";
 import { AuthLayout } from "../components/Layouts/AuthLayout";
+import { DashboardLayout } from "../components/Layouts/DashboardLayout";
 import { LoginPage } from "../pages/Login/LoginPage";
 import { RegisterPage } from "../pages/Register/RegisterPage";
+import { HomePage } from "../pages/Home/HomePage";
+import { ComingSoonPage } from "../pages/ComingSoon/ComingSoonPage";
+import { ProtectedRoute } from "./ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +26,24 @@ export const router = createBrowserRouter([
       {
         path: "register",
         element: <RegisterPage />,
+      },
+    ],
+  },
+
+  // Rutas privadas (requieren sesión)
+  {
+    element: <ProtectedRoute />,
+    children: [
+      {
+        element: <DashboardLayout />,
+        children: [
+          { path: "home", element: <HomePage /> },
+          { path: "ahorro", element: <ComingSoonPage /> },
+          { path: "prestamos", element: <ComingSoonPage /> },
+          { path: "prestamos/solicitar", element: <ComingSoonPage /> },
+          { path: "configuracion", element: <ComingSoonPage /> },
+          { path: "ayuda", element: <ComingSoonPage /> },
+        ],
       },
     ],
   },
