@@ -1,3 +1,5 @@
+import type { Loan } from "./loan";
+
 // Respuesta de GET /admin/dashboard
 export interface AdminDashboard {
   totalUsers: number;
@@ -18,6 +20,16 @@ export interface PendingLoanSummary {
   termMonths: number;
   creditDestination: string;
   createdAt: string;
+}
+
+// Respuesta de GET /loans/admin/pending: el préstamo completo + datos del socio
+export interface AdminLoan extends Loan {
+  user: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+  };
 }
 
 // Respuesta de GET /admin/dashboard/chart

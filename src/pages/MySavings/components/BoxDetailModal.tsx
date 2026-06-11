@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { formatCOP } from "../../../utils/formatCurrency";
+import { formatShortDate, formatTime } from "../../../utils/formatDate";
 import {
   transactionConsecutive,
   type SavingsBoxSummaryResponse,
@@ -22,23 +23,6 @@ const formatLongDate = (value: string) => {
     month: "long",
   })}, ${date.getFullYear()}`;
 };
-
-const formatShortDate = (value: string) =>
-  new Date(value)
-    .toLocaleDateString("es-CO", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    })
-    .replaceAll("/", "-");
-
-const formatTime = (value: string) =>
-  new Date(value)
-    .toLocaleTimeString("es-CO", { hour: "numeric", minute: "2-digit" })
-    // Intl separa "a. m."/"p. m." con espacios no separables
-    .replace(/[  ]/g, " ")
-    .replace("a. m.", "am")
-    .replace("p. m.", "pm");
 
 export const BoxDetailModal = ({ summary, onClose }: BoxDetailModalProps) => {
   const [page, setPage] = useState(1);
