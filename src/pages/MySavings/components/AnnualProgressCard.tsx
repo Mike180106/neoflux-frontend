@@ -48,19 +48,23 @@ export const AnnualProgressCard = ({
     const year = now.getFullYear();
 
     // Lo ahorrado antes de este año es el punto de partida de la curva
-    let running = transactions
+    const initial = transactions
       .filter((t) => new Date(t.createdAt).getFullYear() < year)
       .reduce((sum, t) => sum + signedAmount(t), 0);
 
-    const data = MONTHS.slice(0, now.getMonth() + 1).map((month, index) => {
-      running += transactions
-        .filter((t) => {
-          const date = new Date(t.createdAt);
-          return date.getFullYear() === year && date.getMonth() === index;
-        })
-        .reduce((sum, t) => sum + signedAmount(t), 0);
-      return { month, amount: running };
-    });
+    const { data } = MONTHS.slice(0, now.getMonth() + 1).reduce(
+      (acc, month, index) => {
+        const monthTotal = transactions
+          .filter((t) => {
+            const date = new Date(t.createdAt);
+            return date.getFullYear() === year && date.getMonth() === index;
+          })
+          .reduce((sum, t) => sum + signedAmount(t), 0);
+        const running = acc.running + monthTotal;
+        return { running, data: [...acc.data, { month, amount: running }] };
+      },
+      { running: initial, data: [] as { month: string; amount: number }[] },
+    );
 
     const last = data[data.length - 1]?.amount ?? 0;
     const prev = data[data.length - 2]?.amount ?? 0;

@@ -1,5 +1,4 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { RouterProvider } from "react-router";
 import { router } from "./routes/routes";
 
@@ -14,8 +13,6 @@ export const NeofluxApp = () => {
       lanzaría un error. */}
       <RouterProvider router={router} />{" "}
       {/* Activa React-router que configuramos*/}
-      <ReactQueryDevtools initialIsOpen={false} />{" "}
-      {/* Monta el panel de DevTools de TanStack Query en el navegador */}
     </QueryClientProvider>
   );
 };

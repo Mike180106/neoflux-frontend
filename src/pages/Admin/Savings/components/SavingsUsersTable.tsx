@@ -1,26 +1,23 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { formatCOP } from "../../../../utils/formatCurrency";
-import { formatShortDate, formatTime } from "../../../../utils/formatDate";
-import { loanConsecutive } from "../../../../types/loan";
-import type { AdminLoan } from "../../../../types/admin";
+import type { AdminSavingsUser } from "../../../../types/admin";
 
-interface PendingLoansTableProps {
-  loans: AdminLoan[];
+interface SavingsUsersTableProps {
+  users: AdminSavingsUser[];
 }
 
 const PAGE_SIZE = 6;
 
-export const PendingLoansTable = ({ loans }: PendingLoansTableProps) => {
+export const SavingsUsersTable = ({ users }: SavingsUsersTableProps) => {
   const [page, setPage] = useState(1);
 
-  const totalPages = Math.max(Math.ceil(loans.length / PAGE_SIZE), 1);
-  const pageLoans = loans.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const totalPages = Math.max(Math.ceil(users.length / PAGE_SIZE), 1);
+  const pageUsers = users.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
-  if (loans.length === 0) {
+  if (users.length === 0) {
     return (
       <p className="py-12 text-center text-sm text-gray-400">
-        No hay solicitudes pendientes por revisar
+        No hay socios registrados
       </p>
     );
   }
@@ -31,42 +28,42 @@ export const PendingLoansTable = ({ loans }: PendingLoansTableProps) => {
         <thead>
           <tr className="bg-[#DDDEFE] text-xs font-semibold text-[#1D1FDD]">
             <th className="rounded-l-full px-4 py-2.5 text-left">
-              Consecutivo préstamo
+              Nombre socio
             </th>
-            <th className="px-4 py-2.5 text-left">Socio</th>
-            <th className="px-4 py-2.5 text-right">Monto solicitado</th>
-            <th className="px-4 py-2.5 text-left">Fecha y hora de solicitud</th>
+            <th className="px-4 py-2.5 text-left">Identificación</th>
+            <th className="px-4 py-2.5 text-left">Correo electrónico</th>
+            <th className="px-4 py-2.5 text-center">Cajitas de ahorro</th>
             <th className="rounded-r-full px-4 py-2.5 text-right">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {pageLoans.map((loan) => (
-            <tr
-              key={loan.id}
-              className="border-b border-gray-100 text-gray-900"
-            >
-              <td className="px-4 py-3.5">{loanConsecutive(loan)}</td>
+          {pageUsers.map((user) => (
+            <tr key={user.id} className="border-b border-gray-100 text-gray-900">
               <td className="px-4 py-3.5">
                 <span className="flex items-center gap-2">
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#8E8FFB] text-xs font-bold text-white">
-                    {loan.fullName[0]?.toUpperCase()}
+                    {user.firstName[0]?.toUpperCase()}
                   </span>
-                  {loan.fullName}
+                  {user.firstName} {user.lastName}
                 </span>
               </td>
-              <td className="px-4 py-3.5 text-right font-semibold">
-                {formatCOP(loan.amount)} COP
-              </td>
-              <td className="px-4 py-3.5">
-                {formatShortDate(loan.createdAt)}
-                <span className="block text-xs text-gray-400">
-                  {formatTime(loan.createdAt)}
+              <td className="px-4 py-3.5">CC {user.identificationNumber}</td>
+              <td className="px-4 py-3.5 text-gray-500">{user.email}</td>
+              <td className="px-4 py-3.5 text-center">
+                <span
+                  className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                    user.savingsBoxes.length > 0
+                      ? "bg-green-100 text-green-600"
+                      : "bg-gray-100 text-gray-400"
+                  }`}
+                >
+                  {user.savingsBoxes.length}
                 </span>
               </td>
               <td className="px-4 py-3.5 text-right">
                 <Link
-                  to={`/admin/prestamos/${loan.id}/revisar`}
-                  aria-label={`Revisar solicitud de ${loan.fullName}`}
+                  to={`/admin/ahorros/${user.id}`}
+                  aria-label={`Ver cajitas de ${user.firstName} ${user.lastName}`}
                   className="inline-block text-[#1D1FDD] transition-opacity hover:opacity-70"
                 >
                   <svg
@@ -79,8 +76,8 @@ export const PendingLoansTable = ({ loans }: PendingLoansTableProps) => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   >
-                    <path d="M12 4H6a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-6" />
-                    <path d="m17.5 3.5 3 3L13 14l-3.5.5L10 11l7.5-7.5Z" />
+                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z" />
+                    <circle cx="12" cy="12" r="3" />
                   </svg>
                 </Link>
               </td>

@@ -1,5 +1,6 @@
 import { Outlet } from "react-router";
-import { ADMIN_SIDEBAR, Sidebar } from "../Sidebar/Sidebar";
+import { Sidebar } from "../Sidebar/Sidebar";
+import { ADMIN_SIDEBAR } from "../Sidebar/sidebarConfig";
 
 interface DashboardLayoutProps {
   variant?: "user" | "admin";

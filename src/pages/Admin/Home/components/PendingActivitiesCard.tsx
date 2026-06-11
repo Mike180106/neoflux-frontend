@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 import type { PendingLoanSummary } from "../../../../types/admin";
 
 interface PendingActivitiesCardProps {
@@ -77,10 +78,9 @@ export const PendingActivitiesCard = ({
                     Revisión solicitud préstamo
                   </td>
                   <td className="px-4 py-3 text-right">
-                    {/* Se conectará con Gestión de préstamos */}
-                    <button
-                      type="button"
-                      className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-[#1D1FDD] px-4 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[#1517b8]"
+                    <Link
+                      to={`/admin/prestamos/${loan.id}/revisar`}
+                      className="inline-flex items-center gap-2 rounded-full bg-[#1D1FDD] px-4 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[#1517b8]"
                     >
                       Completar
                       <svg
@@ -95,7 +95,7 @@ export const PendingActivitiesCard = ({
                       >
                         <path d="M5 12h14M13 6l6 6-6 6" />
                       </svg>
-                    </button>
+                    </Link>
                   </td>
                 </tr>
               ))}

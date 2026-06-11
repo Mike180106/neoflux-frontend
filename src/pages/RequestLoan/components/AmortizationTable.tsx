@@ -8,19 +8,36 @@ interface AmortizationTableProps {
 export const AmortizationTable = ({ simulation }: AmortizationTableProps) => {
   // Desglose francés por cuota: el backend solo da el valor de la cuota,
   // interés y abono a capital se derivan con la tasa mensual
-  let saldo = simulation?.amount ?? 0;
-  const rows = (simulation?.table ?? []).map((row) => {
-    const interest = saldo * ((simulation?.monthlyRate ?? 0) / 100);
-    const principal = row.amount - interest;
-    saldo = Math.max(saldo - principal, 0);
-    return {
-      number: row.installmentNumber,
-      installment: row.amount,
-      interest,
-      principal,
-      balance: saldo,
-    };
-  });
+  const { rows } = (simulation?.table ?? []).reduce(
+    (acc, row) => {
+      const interest = acc.saldo * ((simulation?.monthlyRate ?? 0) / 100);
+      const principal = row.amount - interest;
+      const balance = Math.max(acc.saldo - principal, 0);
+      return {
+        saldo: balance,
+        rows: [
+          ...acc.rows,
+          {
+            number: row.installmentNumber,
+            installment: row.amount,
+            interest,
+            principal,
+            balance,
+          },
+        ],
+      };
+    },
+    {
+      saldo: simulation?.amount ?? 0,
+      rows: [] as {
+        number: number;
+        installment: number;
+        interest: number;
+        principal: number;
+        balance: number;
+      }[],
+    },
+  );
 
   return (
     <div className="max-h-72 overflow-y-auto">

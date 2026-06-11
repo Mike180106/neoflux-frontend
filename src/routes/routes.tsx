@@ -12,6 +12,9 @@ import { LoanApplicationPage } from "../pages/RequestLoan/LoanApplicationPage";
 import { ComingSoonPage } from "../pages/ComingSoon/ComingSoonPage";
 import { AdminHomePage } from "../pages/Admin/Home/AdminHomePage";
 import { AdminLoansPage } from "../pages/Admin/Loans/AdminLoansPage";
+import { ReviewLoanPage } from "../pages/Admin/Loans/ReviewLoanPage";
+import { AdminSavingsPage } from "../pages/Admin/Savings/AdminSavingsPage";
+import { UserBoxesPage } from "../pages/Admin/Savings/UserBoxesPage";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { AdminRoute } from "./AdminRoute";
 
@@ -70,7 +73,12 @@ export const router = createBrowserRouter([
           { path: "admin/socios", element: <ComingSoonPage /> },
           { path: "admin/fondo", element: <ComingSoonPage /> },
           { path: "admin/prestamos", element: <AdminLoansPage /> },
-          { path: "admin/ahorros", element: <ComingSoonPage /> },
+          {
+            path: "admin/prestamos/:id/revisar",
+            element: <ReviewLoanPage />,
+          },
+          { path: "admin/ahorros", element: <AdminSavingsPage /> },
+          { path: "admin/ahorros/:userId", element: <UserBoxesPage /> },
           { path: "admin/configuracion", element: <ComingSoonPage /> },
         ],
       },

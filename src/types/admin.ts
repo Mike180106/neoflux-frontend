@@ -1,4 +1,4 @@
-import type { Loan } from "./loan";
+import type { Installment, Loan } from "./loan";
 
 // Respuesta de GET /admin/dashboard
 export interface AdminDashboard {
@@ -29,6 +29,49 @@ export interface AdminLoan extends Loan {
     firstName: string;
     lastName: string;
     email: string;
+  };
+}
+
+// Respuesta de GET /loans/admin/:id (incluye teléfono del socio y cuotas)
+export interface AdminLoanDetail extends AdminLoan {
+  user: AdminLoan["user"] & { phone: string };
+  installments: Installment[];
+}
+
+// Respuesta de GET /savings/admin/users
+export interface AdminSavingsUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  identificationNumber: string;
+  savingsBoxes: AdminSavingsBox[];
+}
+
+export interface AdminSavingsBox {
+  id: string;
+  name: string;
+  balance: number;
+}
+
+// Respuesta de POST /savings/admin/boxes/:id/deposit y /withdraw
+export interface AdminSavingsTransactionResponse {
+  box: {
+    id: string;
+    userId: string;
+    name: string;
+    balance: number;
+    isActive: boolean;
+    createdAt: string;
+    updatedAt: string;
+  };
+  transaction: {
+    id: string;
+    savingsBoxId: string;
+    type: "DEPOSIT" | "WITHDRAWAL";
+    amount: number;
+    description: string | null;
+    createdAt: string;
   };
 }
 
