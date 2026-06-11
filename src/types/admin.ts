@@ -75,6 +75,50 @@ export interface AdminSavingsTransactionResponse {
   };
 }
 
+// Elemento de GET /admin/users (listado de socios)
+export interface AdminUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  company: string;
+  identificationType: string;
+  identificationNumber: string;
+  isActive: boolean;
+  role: string;
+  createdAt: string;
+}
+
+// Respuesta de GET /admin/users/:id (incluye nacimiento, país y relaciones)
+export interface AdminUserDetail extends AdminUser {
+  birthDate: string;
+  country: string;
+  updatedAt: string;
+  loans: {
+    id: string;
+    amount: number;
+    termMonths: number;
+    status: string;
+    createdAt: string;
+  }[];
+  savingsBoxes: {
+    id: string;
+    name: string;
+    balance: number;
+    isActive: boolean;
+    createdAt: string;
+  }[];
+}
+
+// Respuesta de GET/PATCH /admin/fund-config (tasas globales del fondo)
+export interface FundConfig {
+  id: string;
+  annualInterestRate: number;
+  savingsReturnRate: number;
+  updatedAt: string;
+}
+
 // Respuesta de GET /admin/dashboard/chart
 export interface AdminDashboardChart {
   chart: {

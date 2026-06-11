@@ -13,6 +13,9 @@ import { ComingSoonPage } from "../pages/ComingSoon/ComingSoonPage";
 import { AdminHomePage } from "../pages/Admin/Home/AdminHomePage";
 import { AdminLoansPage } from "../pages/Admin/Loans/AdminLoansPage";
 import { ReviewLoanPage } from "../pages/Admin/Loans/ReviewLoanPage";
+import { AdminFundConfigPage } from "../pages/Admin/FundConfig/AdminFundConfigPage";
+import { AdminUsersPage } from "../pages/Admin/Users/AdminUsersPage";
+import { UserDetailPage } from "../pages/Admin/Users/UserDetailPage";
 import { AdminSavingsPage } from "../pages/Admin/Savings/AdminSavingsPage";
 import { UserBoxesPage } from "../pages/Admin/Savings/UserBoxesPage";
 import { ProtectedRoute } from "./ProtectedRoute";
@@ -70,8 +73,9 @@ export const router = createBrowserRouter([
         element: <DashboardLayout variant="admin" />,
         children: [
           { path: "admin/home", element: <AdminHomePage /> },
-          { path: "admin/socios", element: <ComingSoonPage /> },
-          { path: "admin/fondo", element: <ComingSoonPage /> },
+          { path: "admin/socios", element: <AdminUsersPage /> },
+          { path: "admin/socios/:id", element: <UserDetailPage /> },
+          { path: "admin/fondo", element: <AdminFundConfigPage /> },
           { path: "admin/prestamos", element: <AdminLoansPage /> },
           {
             path: "admin/prestamos/:id/revisar",
