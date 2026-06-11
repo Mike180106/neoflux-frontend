@@ -56,6 +56,15 @@ export interface LoanSimulation {
   monthlyInstallment: number;
   totalAmount: number;
   totalInterest: number;
+  table: { installmentNumber: number; amount: number }[];
+}
+
+// Respuesta de GET /loans/terms (plazos activos del fondo)
+export interface LoanTermOption {
+  id: string;
+  months: number;
+  isActive: boolean;
+  createdAt: string;
 }
 
 // El backend no expone un consecutivo: se deriva del id (estable por préstamo)

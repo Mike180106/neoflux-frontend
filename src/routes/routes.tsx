@@ -6,6 +6,8 @@ import { LoginPage } from "../pages/Login/LoginPage";
 import { RegisterPage } from "../pages/Register/RegisterPage";
 import { HomePage } from "../pages/Home/HomePage";
 import { MyLoansPage } from "../pages/MyLoans/MyLoansPage";
+import { MySavingsPage } from "../pages/MySavings/MySavingsPage";
+import { RequestLoanPage } from "../pages/RequestLoan/RequestLoanPage";
 import { ComingSoonPage } from "../pages/ComingSoon/ComingSoonPage";
 import { ProtectedRoute } from "./ProtectedRoute";
 
@@ -39,9 +41,9 @@ export const router = createBrowserRouter([
         element: <DashboardLayout />,
         children: [
           { path: "home", element: <HomePage /> },
-          { path: "ahorro", element: <ComingSoonPage /> },
+          { path: "ahorro", element: <MySavingsPage /> },
           { path: "prestamos", element: <MyLoansPage /> },
-          { path: "prestamos/solicitar", element: <ComingSoonPage /> },
+          { path: "prestamos/solicitar", element: <RequestLoanPage /> },
           { path: "configuracion", element: <ComingSoonPage /> },
           { path: "ayuda", element: <ComingSoonPage /> },
         ],
