@@ -23,7 +23,7 @@ interface MenuItem {
 const MENU_ITEMS: MenuItem[] = [
   { to: "/home", label: "Home", icon: HomeIcon },
   { to: "/ahorro", label: "Mi ahorro", icon: PiggyIcon },
-  { to: "/prestamos/solicitar", label: "Solicitar préstamos", icon: LoanIcon, badge: 3 },
+  { to: "/prestamos/solicitar", label: "Solicitar préstamos", icon: LoanIcon },
   { to: "/prestamos", label: "Mis prestamos", icon: WalletIcon },
 ];
 

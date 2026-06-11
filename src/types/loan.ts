@@ -67,9 +67,27 @@ export interface LoanTermOption {
   createdAt: string;
 }
 
-// El backend no expone un consecutivo: se deriva del id (estable por préstamo)
-export const loanConsecutive = (loan: Loan) =>
-  `NF-${new Date(loan.createdAt).getFullYear()}-${
+// Cuerpo de POST /loans (solicitud formal de crédito)
+export interface CreateLoanRequest {
+  amount: number;
+  termMonths: number;
+  creditDestination: string;
+  fullName: string;
+  identificationType: string;
+  identificationNumber: string;
+  city: string;
+  address: string;
+  phone: string;
+  company: string;
+  contractType: string;
+  monthlySalary: number;
+  seniority: string;
+}
+
+// El backend no expone un consecutivo: se deriva del id (estable por préstamo).
+// "NF" para préstamos activos, "NP" para el radicado de la solicitud
+export const loanConsecutive = (loan: Loan, prefix = "NF") =>
+  `${prefix}-${new Date(loan.createdAt).getFullYear()}-${
     (parseInt(loan.id.slice(0, 4), 16) % 9000) + 1000
   }`;
 

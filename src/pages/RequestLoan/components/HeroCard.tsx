@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 export const HeroCard = () => {
   return (
     <div className="grid gap-8 rounded-2xl bg-white p-6 lg:grid-cols-[1.2fr_1fr]">
@@ -36,12 +38,12 @@ export const HeroCard = () => {
         </p>
       </div>
 
-      {/* Llamado a la acción (el formulario de solicitud se implementará luego) */}
+      {/* Llamado a la acción */}
       <div className="flex flex-col items-center justify-center gap-3">
         <p className="text-lg font-bold text-gray-900">¿Listo para empezar?</p>
-        <button
-          type="button"
-          className="flex w-full max-w-72 cursor-pointer items-center justify-center gap-2 rounded-full bg-[#1D1FDD] py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1517b8]"
+        <Link
+          to="/prestamos/solicitar/formulario"
+          className="flex w-full max-w-72 items-center justify-center gap-2 rounded-full bg-[#1D1FDD] py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1517b8]"
         >
           Solicitar ahora
           <svg
@@ -56,7 +58,7 @@ export const HeroCard = () => {
           >
             <path d="M5 12h14M13 6l6 6-6 6" />
           </svg>
-        </button>
+        </Link>
         <p className="text-xs text-gray-400">Proceso 100% seguro y cifrado</p>
       </div>
     </div>

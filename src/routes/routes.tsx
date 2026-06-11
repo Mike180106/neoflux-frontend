@@ -8,6 +8,7 @@ import { HomePage } from "../pages/Home/HomePage";
 import { MyLoansPage } from "../pages/MyLoans/MyLoansPage";
 import { MySavingsPage } from "../pages/MySavings/MySavingsPage";
 import { RequestLoanPage } from "../pages/RequestLoan/RequestLoanPage";
+import { LoanApplicationPage } from "../pages/RequestLoan/LoanApplicationPage";
 import { ComingSoonPage } from "../pages/ComingSoon/ComingSoonPage";
 import { ProtectedRoute } from "./ProtectedRoute";
 
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
           { path: "ahorro", element: <MySavingsPage /> },
           { path: "prestamos", element: <MyLoansPage /> },
           { path: "prestamos/solicitar", element: <RequestLoanPage /> },
+          {
+            path: "prestamos/solicitar/formulario",
+            element: <LoanApplicationPage />,
+          },
           { path: "configuracion", element: <ComingSoonPage /> },
           { path: "ayuda", element: <ComingSoonPage /> },
         ],
