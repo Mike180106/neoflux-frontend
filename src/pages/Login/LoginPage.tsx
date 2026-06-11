@@ -37,7 +37,9 @@ export const LoginPage = () => {
 
   const onSubmit = (data: LoginFormValues) => {
     loginMutation.mutate(data, {
-      onSuccess: () => navigate("/home"),
+      // Cada rol entra a su propio dashboard
+      onSuccess: ({ user }) =>
+        navigate(user.role === "ADMIN" ? "/admin/home" : "/home"),
     });
   };
 

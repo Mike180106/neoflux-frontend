@@ -4,12 +4,14 @@ import { useAuthStore } from "../../store/authStore";
 import {
   CoinIcon,
   CollapseIcon,
+  FundIcon,
   HelpIcon,
   HomeIcon,
   LoanIcon,
   LogoutIcon,
   PiggyIcon,
   SettingsIcon,
+  UsersIcon,
   WalletIcon,
 } from "./sidebarIcons";
 
@@ -20,17 +22,51 @@ interface MenuItem {
   badge?: number;
 }
 
-const MENU_ITEMS: MenuItem[] = [
-  { to: "/home", label: "Home", icon: HomeIcon },
-  { to: "/ahorro", label: "Mi ahorro", icon: PiggyIcon },
-  { to: "/prestamos/solicitar", label: "Solicitar préstamos", icon: LoanIcon },
-  { to: "/prestamos", label: "Mis prestamos", icon: WalletIcon },
-];
+interface SidebarConfig {
+  menuItems: MenuItem[];
+  generalItems: MenuItem[];
+  promo: { message: string; buttonLabel: string };
+}
 
-const GENERAL_ITEMS: MenuItem[] = [
-  { to: "/configuracion", label: "Configuración", icon: SettingsIcon },
-  { to: "/ayuda", label: "Ayuda", icon: HelpIcon },
-];
+const USER_SIDEBAR: SidebarConfig = {
+  menuItems: [
+    { to: "/home", label: "Home", icon: HomeIcon },
+    { to: "/ahorro", label: "Mi ahorro", icon: PiggyIcon },
+    {
+      to: "/prestamos/solicitar",
+      label: "Solicitar préstamos",
+      icon: LoanIcon,
+    },
+    { to: "/prestamos", label: "Mis prestamos", icon: WalletIcon },
+  ],
+  generalItems: [
+    { to: "/configuracion", label: "Configuración", icon: SettingsIcon },
+    { to: "/ayuda", label: "Ayuda", icon: HelpIcon },
+  ],
+  promo: {
+    message:
+      "Solicita tu primer crédito con 98% de probabilidades de aprobación.",
+    buttonLabel: "Solicitar",
+  },
+};
+
+export const ADMIN_SIDEBAR: SidebarConfig = {
+  menuItems: [
+    { to: "/admin/home", label: "Home", icon: HomeIcon },
+    { to: "/admin/socios", label: "Gestión de socios", icon: UsersIcon },
+    { to: "/admin/fondo", label: "Configuración de fondo", icon: FundIcon },
+    { to: "/admin/prestamos", label: "Gestión de préstamos", icon: LoanIcon },
+    { to: "/admin/ahorros", label: "Gestión de ahorros", icon: PiggyIcon },
+  ],
+  generalItems: [
+    { to: "/admin/configuracion", label: "Configuración", icon: SettingsIcon },
+  ],
+  promo: {
+    message:
+      "Revisa los préstamos en mora y realiza la gestión de estos usuarios.",
+    buttonLabel: "Realizar gestión",
+  },
+};
 
 const SidebarLink = ({ to, label, icon: Icon, badge }: MenuItem) => (
   <NavLink
@@ -54,7 +90,12 @@ const SidebarLink = ({ to, label, icon: Icon, badge }: MenuItem) => (
   </NavLink>
 );
 
-export const Sidebar = () => {
+interface SidebarProps {
+  config?: SidebarConfig;
+}
+
+export const Sidebar = ({ config = USER_SIDEBAR }: SidebarProps) => {
+  const { menuItems, generalItems, promo } = config;
   const logout = useAuthStore((state) => state.logout);
   const navigate = useNavigate();
 
@@ -80,7 +121,7 @@ export const Sidebar = () => {
       {/* Menú */}
       <p className="mb-3 px-4 text-sm text-gray-400">Menú</p>
       <nav className="flex flex-col gap-1.5">
-        {MENU_ITEMS.map((item) => (
+        {menuItems.map((item) => (
           <SidebarLink key={item.to} {...item} />
         ))}
       </nav>
@@ -88,7 +129,7 @@ export const Sidebar = () => {
       {/* General */}
       <p className="mt-8 mb-3 px-4 text-sm text-gray-400">General</p>
       <nav className="flex flex-col gap-1.5">
-        {GENERAL_ITEMS.map((item) => (
+        {generalItems.map((item) => (
           <SidebarLink key={item.to} {...item} />
         ))}
         <button
@@ -109,9 +150,7 @@ export const Sidebar = () => {
         }}
       >
         <CoinIcon />
-        <p className="mt-3 text-sm leading-snug font-bold">
-          Solicita tu primer crédito con 98% de probabilidades de aprobación.
-        </p>
+        <p className="mt-3 text-sm leading-snug font-bold">{promo.message}</p>
         <p className="mt-2 text-[10px] text-white/80">
           Aplican términos y condiciones
         </p>
@@ -119,7 +158,7 @@ export const Sidebar = () => {
           type="button"
           className="mt-4 h-10 w-full cursor-pointer rounded-full bg-[#1D1FDD] text-sm font-semibold text-white transition-colors hover:bg-[#1517b8]"
         >
-          Solicitar
+          {promo.buttonLabel}
         </button>
       </div>
     </aside>

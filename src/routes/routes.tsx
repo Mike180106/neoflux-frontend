@@ -10,7 +10,9 @@ import { MySavingsPage } from "../pages/MySavings/MySavingsPage";
 import { RequestLoanPage } from "../pages/RequestLoan/RequestLoanPage";
 import { LoanApplicationPage } from "../pages/RequestLoan/LoanApplicationPage";
 import { ComingSoonPage } from "../pages/ComingSoon/ComingSoonPage";
+import { AdminHomePage } from "../pages/Admin/Home/AdminHomePage";
 import { ProtectedRoute } from "./ProtectedRoute";
+import { AdminRoute } from "./AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +53,24 @@ export const router = createBrowserRouter([
           },
           { path: "configuracion", element: <ComingSoonPage /> },
           { path: "ayuda", element: <ComingSoonPage /> },
+        ],
+      },
+    ],
+  },
+
+  // Rutas de administrador (requieren sesión con rol ADMIN)
+  {
+    element: <AdminRoute />,
+    children: [
+      {
+        element: <DashboardLayout variant="admin" />,
+        children: [
+          { path: "admin/home", element: <AdminHomePage /> },
+          { path: "admin/socios", element: <ComingSoonPage /> },
+          { path: "admin/fondo", element: <ComingSoonPage /> },
+          { path: "admin/prestamos", element: <ComingSoonPage /> },
+          { path: "admin/ahorros", element: <ComingSoonPage /> },
+          { path: "admin/configuracion", element: <ComingSoonPage /> },
         ],
       },
     ],

@@ -72,6 +72,22 @@ export const CollapseIcon = () => (
   </svg>
 );
 
+export const UsersIcon = () => (
+  <svg {...base}>
+    <circle cx="9" cy="8" r="3.5" />
+    <path d="M3.5 20c.5-3 2.5-5 5.5-5s5 2 5.5 5" />
+    <path d="M16 5a3 3 0 0 1 0 6M17.5 15c1.8.6 3 2.3 3.5 4.5" />
+  </svg>
+);
+
+export const FundIcon = () => (
+  <svg {...base}>
+    <path d="M12 3 4.5 6v5c0 4.5 3 8.5 7.5 10 4.5-1.5 7.5-5.5 7.5-10V6L12 3Z" />
+    <path d="M13.8 9.5c-.3-.6-1-1-1.8-1-1 0-1.8.6-1.8 1.4s.7 1.2 1.8 1.4c1.1.2 1.8.6 1.8 1.4s-.8 1.4-1.8 1.4c-.8 0-1.5-.4-1.8-1" />
+    <path d="M12 7.5v1M12 14v1" />
+  </svg>
+);
+
 export const CoinIcon = () => (
   <svg {...base} width={28} height={28}>
     <circle cx="12" cy="12" r="9" />
