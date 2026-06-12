@@ -13,15 +13,35 @@ interface ApplicationSuccessProps {
 }
 
 export const ApplicationSuccess = ({ loan }: ApplicationSuccessProps) => {
+  // El backend puede rechazar al instante si el socio no tiene ahorrado
+  // al menos el 20% del monto entre sus cajas
+  const autoRejected = loan.status === "REJECTED";
+
   return (
     <div className="mt-5">
-      <h3 className="text-xl font-bold text-gray-900">
-        ¡Solicitud recibida con éxito!
-      </h3>
-      <p className="mt-1 text-sm text-gray-500">
-        Hemos recibido tu información. Nuestro equipo comenzará la validación
-        de inmediato.
-      </p>
+      {autoRejected ? (
+        <>
+          <h3 className="text-xl font-bold text-gray-900">
+            Tu solicitud no fue aprobada
+          </h3>
+          <p className="mt-1 text-sm text-gray-500">
+            Para solicitar este préstamo necesitas tener ahorrado al menos el{" "}
+            <span className="font-bold">20% del monto</span> (
+            {formatCOP(loan.amount * 0.2)} COP) entre tus cajitas de ahorro.
+            Sigue ahorrando y vuelve a intentarlo.
+          </p>
+        </>
+      ) : (
+        <>
+          <h3 className="text-xl font-bold text-gray-900">
+            ¡Solicitud recibida con éxito!
+          </h3>
+          <p className="mt-1 text-sm text-gray-500">
+            Hemos recibido tu información. Nuestro equipo comenzará la
+            validación de inmediato.
+          </p>
+        </>
+      )}
 
       <p className="mt-6 text-xs text-gray-400">Número de radicado</p>
       <p className="text-4xl font-extrabold text-gray-900">
@@ -43,8 +63,10 @@ export const ApplicationSuccess = ({ loan }: ApplicationSuccessProps) => {
         </div>
       </div>
 
-      {/* Línea de tiempo del proceso */}
-      <div className="mt-6 flex flex-col">
+      {/* Línea de tiempo del proceso (solo si sigue en revisión) */}
+      {!autoRejected && (
+        <>
+          <div className="mt-6 flex flex-col">
         {TIMELINE.map((step, index) => (
           <div key={step} className="flex gap-4">
             <div className="flex flex-col items-center">
@@ -80,14 +102,16 @@ export const ApplicationSuccess = ({ loan }: ApplicationSuccessProps) => {
             </div>
             <p className="pt-1.5 text-sm text-gray-700">{step}</p>
           </div>
-        ))}
-      </div>
+            ))}
+          </div>
 
-      <p className="mt-4 text-sm text-gray-700">
-        Sigue tu solicitud en <span className="font-bold">Mis Préstamos</span>.
-        Recibirás una alerta por correo y en la plataforma al finalizar la
-        verificación.
-      </p>
+          <p className="mt-4 text-sm text-gray-700">
+            Sigue tu solicitud en{" "}
+            <span className="font-bold">Mis Préstamos</span>. Recibirás una
+            alerta por correo y en la plataforma al finalizar la verificación.
+          </p>
+        </>
+      )}
 
       <div className="mt-6 flex justify-end">
         <Link
